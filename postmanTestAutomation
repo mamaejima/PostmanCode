@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "381bbe25-a359-47e1-8820-b6b8cb0ad25f",
+		"name": "End2EndTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createNewRecord",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"id\": 230,\r\n    \"title\": \"Introduction to Python\",\r\n    \"author\": \"Jay Kumar\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{resource}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}"
+					]
+				},
+				"description": "createNewRecord"
+			},
+			"response": []
+		},
+		{
+			"name": "verifyNewRecordCreated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ConfirmStatus200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"ConfirmTitle\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Introduction to Python\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{resource}}/219",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}",
+						"219"
+					]
+				},
+				"description": "verify record created"
+			},
+			"response": []
+		},
+		{
+			"name": "updateNewRecord",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 215,\r\n    \"title\": \"Hardware Troubleshooting\",\r\n    \"author\": \"Jay Kumar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{resource}}/219",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}",
+						"219"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyUpdate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"VerifyUpdatedDataTitle\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Hardware Troubleshooting\");\r",
+							"});\r",
+							"pm.test(\"VerifyUpdatedDataAuthor\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Jay Kumar\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{resource}}/219",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}",
+						"219"
+					]
+				},
+				"description": "verify the updated record"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRecord",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{resource}}/219",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}",
+						"219"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyDelete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verifyDelete\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"console.log(responseCode.code)\r",
+							"console.log(responseCode.detail)\r",
+							"console.log(responseCode.name)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{resource}}/230",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{resource}}",
+						"230"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
